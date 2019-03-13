@@ -4,6 +4,12 @@
 
 > wss://{HOST}/ws
 
+### Host structure
+
+> Authenticated APIs:www.xxxx.com
+
+> Public APIs: www.xxxx.com/api
+
 ### Data
 
 All return data of websocket APIs needs to be unzipped.
