@@ -133,12 +133,12 @@ https://{HOST}/v1/order/orders?AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx&orde
 # Request Process
 
 1. The root url is: `https://{HOST}/market` for marketing and `https://{HOST}/v1` for trading.
-
-2. The field 'Content-Type' in request header should be 'application/x-www-form-urlencoded' for a GET method, and 'application/x-www-form-urlencoded' for a POST method. 
-3. Request parameter: Construct the request parameters according to each API interface.
-4. Submit request: Use POST or GET method to send request to server.
-5. HTTPS is required.
-6. Server respond: Server processes request and returns data to users in JSON format after authentication check.
+2. Host Structure: www.xxxx.com/api (Should you have any question about the Host, please consult with your host provider.)
+3. The field 'Content-Type' in request header should be 'application/x-www-form-urlencoded' for a GET method, and 'application/x-www-form-urlencoded' for a POST method. 
+4. Request parameter: Construct the request parameters according to each API interface.
+5. Submit request: Use POST or GET method to send request to server.
+6. HTTPS is required.
+7. Server respond: Server processes request and returns data to users in JSON format after authentication check.
 
 # API Reference
 
