@@ -14,7 +14,7 @@ Each HTTPS request formatted for Signature should contain the following:
 
 For example:
 ```
-https://{HOST}/v1/order/orders?
+https://{HOST}/api/v1/order/orders?
 AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
 &SignatureMethod=HmacSHA256
 &SignatureVersion=2
@@ -34,7 +34,7 @@ Before you can sign the Query request,  normalize the request in a standardized 
 The following example generates the string to sign for the following call to the server.
 
 ```
-https://{HOST}/v1/order/orders?
+https://{HOST}/api/v1/order/orders?
 AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx
 &SignatureMethod=HmacSHA256
 &SignatureVersion=2
