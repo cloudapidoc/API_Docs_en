@@ -1197,3 +1197,271 @@ Example:
 }
 ```
 
+
+## MARGIN API (Please fill in the field 'source' in method '/v1/order/orders/place' with 'margin-api', and the field 'accountid' should be a 'margin' accountid queried in method '/v1/account/accounts')
+
+` only usdt-trading assets(except btc) are supported  `
+
+#### POST /v1/dw/transfer-in/margin  Transfer asset from spot account to margin account
+#### POST /v1/dw/transfer-out/margin  Transfer asset from margin account to spot account
+
+Request
+
+| Param  | required  | data type      | description     | default  | value range |
+| ----- | ----- | ------ | ----- | ---- | -------- |
+| symbol | true  | string | trading asset like 'btcusdt'  |      |      |
+| currency  | true  | string |   |      |    |
+| amount      | true | string |      |      |    |
+
+
+Response:
+
+| Param | required | data type  | description   | value range |
+| ---- | ---- | ---- | ---- | ---- |
+| data | true | long | transfer id |      |
+
+Example:
+
+```
+/* POST /v1/dw/transfer-in/margin
+{
+  "symbol": "ethusdt",
+  "currency": "eth",
+  "amount": "1.0"
+} */
+{
+  "status": "ok",
+  "data": 1000
+}
+```
+
+
+#### POST /v1/margin/orders  Margin application
+
+Request
+
+| Param   | required  | data type      | description    | default  | value range  |
+| ----- | ----- | ------ |  --------------- | ---- | -------- |
+| symbol | true  | string |    |      |      |
+| currency  | true  | string |   |      |    |
+| amount  | true | string |        |      |   |
+
+
+Response:
+
+| Param | required | data type  | description   | value range |
+| ---- | ---- | ---- | ---- | ---- |
+| data | true | long | margin order id |      |
+
+Example:
+
+```
+/* POST /v1/margin/orders {
+   "amount": "10.1",
+   "symbol": "ethusdt",
+   "currency": "eth"
+} */
+{
+  "status": "ok",
+  "data": 59378
+}
+```
+
+
+#### POST /v1/margin/orders/{order-id}/repay     Repayment
+
+Request
+
+| Param       | required  | data type      | description   | default  | value range   |
+| ----- | ----- | ------ | -----  | ---- | --------- |
+| order-id | true  | long | margin order id, filled in method path  |      |      |
+| amount   | true | string |   |      |       |
+
+
+Response:
+
+| Param | required | data type  | description   | value range |
+| ---- | ---- | ---- | ---- | ---- |
+| data | true | long | margin order id  |      |
+
+Example:
+
+```
+/* POST /v1/margin/orders/59378/repay {
+   "amount": "10.1"
+}*/
+{
+  "status": "ok",
+  "data": 59378
+}
+```
+
+
+#### GET /v1/margin/loan-orders  Margin order list
+
+Request
+
+| Param       | required  | data type      | description    | default  | value range   |
+| ----- | ----- | ------ |  -------  | ---- |  ----  |
+| symbol | true | string |    |  |  |
+| start-date | false | string |  yyyy-mm-dd  |     |    |
+| end-date | false | string |  yyyy-mm-dd  |    |    |
+| states | false | string |   |     |   |
+| from   | false | string |    |    |     |
+| direct | false | string |      |    | prev  ,next  |
+| size   | false | string |    |    |     |
+
+
+Response:
+
+| Param | required | data type  | description | value range |
+|-----|-----|-----|-----|------|
+|   id  |  true  |  long  |    | |
+|   user-id  |  true  |  long  |  | |
+|   account-id  |  true  |  long  |    | |
+|   symbol  |  true  |  string  |    | |
+|   currency  |  true  |  string  |    | |
+| loan-amount | true |string |   | |
+| loan-balance | true | string |   | |
+| interest-rate | true | string |   | |
+| interest-amount | true | string |   | |
+| interest-balance | true | string |   | |
+| created-at | true | long |   | |
+| accrued-at | true | long |   | |
+| state | true | string |   |created  ,accrual ,cleared ,invalid |
+
+Example:
+
+```
+/* GET /v1/margin/orders?symbol=btcusdt
+
+*/
+{
+    "status": "ok",
+    "data": [
+        {
+            "currency": "btc",
+            "symbol": "btcusdt",
+            "accrued-at": 1511760873587,
+            "loan-amount": "0.333000000000000000",
+            "loan-balance": "0.333000000000000000",
+            "interest-balance": "0.000000000000000000",//unrepaid
+            "created-at": 1511762673587,
+            "interest-amount": "0.000000000000000000",
+            "interest-rate": "0.000000000000000000",
+            "account-id": 18298,
+            "user-id": 111899,
+            "updated-at": 1511762673654,
+            "id": 232,
+            "state": "accrual"
+        }
+      ]
+}
+
+```
+
+
+#### GET /v1/margin/accounts/balance?symbol={symbol}  Margin account info
+
+Request
+
+| Param | required | data type  | description | default | value range |
+|-----|-----|-----|-----|-----|-----|
+| symbol | false | string |  filled in method path   |  |  |
+
+
+Response:
+
+| Param | required | data type  | description | value range |
+|-----|-----|-----|-----|------|
+| symbol  |  true  |  string  |  trading asset | |
+| state  |  true  |  string  |    |working,fl-sys,fl-mgt,fl-end |
+| risk-rate | true | object |   | |
+| fl-price | true | string |   | |
+| list | true | array | subaccount list   | |
+
+Example:
+
+```
+/* GET /v1/margin/accounts/balance?symbol=btcusdt
+
+*/
+{
+    "status": "ok",
+    "data": [
+        {
+            "id": 18264,
+            "type": "margin",
+            "state": "working",
+            "symbol": "btcusdt",
+            "fl-price": "0",
+            "fl-type": "safe",
+            "risk-rate": "475.952571086994250554",
+            "list": [
+                {
+                    "currency": "btc",
+                    "type": "trade",
+                    "balance": "1168.533000000000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "frozen",
+                    "balance": "0.000000000000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "loan",
+                    "balance": "-2.433000000000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "interest",
+                    "balance": "-0.000533000000000000"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "trade",
+                    "balance": "1313.534000000000000000"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "frozen",
+                    "balance": "0.000000000000000000"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "loan",
+                    "balance": "-140.234099999999999920"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "interest",
+                    "balance": "-0.931206660000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "transfer-out-available",
+                    "balance": "1163.872174670000000000"
+                },
+                { "currency": "usdt",
+                    "type": "transfer-out-available",
+                    "balance": "1313.534000000000000000"
+                },
+                {
+                    "currency": "btc",
+                    "type": "loan-available",
+                    "balance": "8161.876538350676000000"
+                },
+                {
+                    "currency": "usdt",
+                    "type": "loan-available",
+                    "balance": "49859.765900000000000080"
+                }
+            ]
+        }
+    ]
+}
+
+```
+
+
