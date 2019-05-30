@@ -132,10 +132,10 @@ https://{HOST}/v1/order/orders?AccessKeyId=e2xxxxxx-99xxxxxx-84xxxxxx-7xxxx&orde
 
 # Request Process
 
-1.  #rest public api：www.xxxx.com/api without verify
-    #rest private api：www.xxxx.com/api verify host:www.xxxx.com
-    #ws public api：www.xxxx.com/api/ws without verify
-    #ws private api：www.xxxx.com/ws/v1 verify host：www.xxxx.com ；verify path：ws/v1.
+1.  rest public api：www.xxxx.com/api without verify
+    ；rest private api：www.xxxx.com/api verify host:www.xxxx.com
+    ；ws public api：www.xxxx.com/api/ws without verify
+    ；ws private api：www.xxxx.com/ws/v1 verify host：www.xxxx.com ；verify path：ws/v1.
 2. Host Structure: www.xxxx.com/api (Should you have any question about the Host, please consult with your host provider.)
 3. The field 'Content-Type' in request header should be 'application/x-www-form-urlencoded' for a GET method, and 'application/x-www-form-urlencoded' for a POST method. 
 4. Request parameter: Construct the request parameters according to each API interface.
